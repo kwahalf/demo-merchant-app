@@ -13,17 +13,16 @@ const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// create our webhook endpoint to recive webhooks from Safaricom
+// create our webhook endpoint to recive webhooks from Angaza IPN
 app.post('/hooks/payments', (req, res) => {
-  console.log('-----------Received M-Pesa webhook-----------');
+  console.log('-----------Received Payment Notification From Angaza IPN-----------');
   
   // format and dump the request payload recieved from safaricom in the terminal
   console.log(prettyjson.render(req.body, options));
   console.log('-----------------------');
   
   let message = {
-    "ResponseCode": "00000000",
-    "ResponseDesc": "success"
+    "Status": "SUCCESS"
   };
   
   // respond to safaricom servers with a success message
@@ -31,18 +30,16 @@ app.post('/hooks/payments', (req, res) => {
 });
 
 app.get('/hooks/validate', (req, res) => {
-  console.log('-----------Received M-Pesa webhook-----------');
+  console.log('-----------Recieved Reference Validation Request From Angaza IPN-----------');
   
-  // format and dump the request payload recieved from safaricom in the terminal
-  console.log(prettyjson.render(req.params, options));
+  console.log(prettyjson.render(req.query, options));
   console.log('-----------------------');
   
   let message = {
-    "ResponseCode": "00000000",
-    "ResponseDesc": "success"
+    "valid": true
   };
   
-  // respond to safaricom servers with a success message
+
   res.json(message);
 });
 
