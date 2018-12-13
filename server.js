@@ -18,14 +18,13 @@ app.post('/hooks/payments', (req, res) => {
   console.log('-----------Received Payment Notification From Angaza IPN-----------');
   
   // format and dump the request payload recieved from safaricom in the terminal
-  console.log(prettyjson.render(req.body, options));
+  console.log(req.body);
   console.log('-----------------------');
   
   let message = {
     "Status": "SUCCESS"
   };
   
-  // respond to safaricom servers with a success message
   res.json(message);
 });
 
