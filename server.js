@@ -35,7 +35,14 @@ app.get('/hooks/validate', (req, res) => {
   console.log('-----------------------');
   
   let message = {
-    "valid": true
+    "valid": true,
+    "is_registerd": true,
+    "min_amount": 100,
+    "unlock_amount": 4000,
+    "upfront_price": 4000,
+    "unlock_price": 4000,
+    "is_unlocked": false,
+    "registration_waiting_for_payment": false
   };
   
 
