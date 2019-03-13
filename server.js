@@ -2,6 +2,8 @@ const prettyjson = require('prettyjson');
 const express = require('express');
 const bodyParser = require('body-parser')
 
+const xml = require('xml');
+
 const options = {
   noColor: true
 };
@@ -27,6 +29,22 @@ app.post('/hooks/payments', (req, res) => {
   
   res.json(message);
 });
+
+app.post('/hooks/debit_request', (req, res) => {
+  console.log('-----------Received Debit Request From Angaza IPN-----------');
+  
+  // format and dump the request payload recieved from safaricom in the terminal
+  console.log(req.body);
+  console.log('-----------------------');
+  
+
+  let message = xml([ { Status: "SUCCESS" }], { declaration: true })
+  
+  res.type('application/xml');
+  res.send(message);
+});
+
+
 
 app.get('/hooks/validate', (req, res) => {
   console.log('-----------Recieved Reference Validation Request From Angaza IPN-----------');
